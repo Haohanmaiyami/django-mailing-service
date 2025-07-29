@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Список рассылок</h1>
+
+  {% if object_list %}
+    <ul>
+      {% for mailing in object_list %}
+        <li>
+          {{ mailing }} (ID: {{ mailing.id }}) —
+          <a href="{% url 'mailing:update' mailing.id %}">Изменить</a> |
+          <a href="{% url 'mailing:delete' mailing.id %}">Удалить</a> |
+          <a href="{% url 'mailing:send' mailing.id %}">Отправить</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Пока нет рассылок.</p>
+  {% endif %}
+{% endblock %}

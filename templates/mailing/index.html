@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Главная</h1>
+
+  <ul>
+    <li>Всего рассылок: {{ total_mailings }}</li>
+    <li>Активных рассылок: {{ active_mailings }}</li>
+    <li>Уникальных клиентов: {{ unique_clients }}</li>
+  </ul>
+
+  <hr>
+
+  <h3>Разделы</h3>
+  <ul>
+    <li><a href="{% url 'mailing:list' %}">Список рассылок</a></li>
+    <li><a href="{% url 'mailing:message_list' %}">Список сообщений</a></li>
+    <li><a href="{% url 'mailing:client_list' %}">Список клиентов</a></li>
+    <li><a href="{% url 'mailing:log_list' %}">История отправок</a></li>
+  </ul>
+{% endblock %}

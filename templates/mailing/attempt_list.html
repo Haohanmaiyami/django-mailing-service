@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>История отправок</h2>
+  <ul>
+    {% for attempt in attempts %}
+      <li>{{ attempt.datetime }} — {{ attempt.status }} — {{ attempt.server_response }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

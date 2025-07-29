@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Список клиентов</h2>
+  <p><a href="{% url 'mailing:client_create' %}">Добавить нового клиента</a></p>
+  <ul>
+    {% for client in clients %}
+    <li>{{ client.email }} — {{ client.full_name }}
+      {% if request.user == client.owner %}
+      | <a href="{% url 'mailing:client_update' client.pk %}">Редактировать</a>
+      | <a href="{% url 'mailing:client_delete' client.pk %}">Удалить</a>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

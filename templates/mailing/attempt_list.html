@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>История отправок</h2>
+
+  {% if attempts %}
+    <table border="1" cellpadding="8" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Дата и время</th>
+          <th>Статус</th>
+          <th>Ответ сервера</th>
+          <th>Рассылка</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for attempt in attempts %}
+          <tr>
+            <td>{{ attempt.datetime|date:"d.m.Y H:i" }}</td>
+            <td>{{ attempt.status }}</td>
+            <td>{{ attempt.server_response }}</td>
+            <td>{{ attempt.mailing.message.subject }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>Пока нет попыток отправки писем.</p>
+  {% endif %}
+{% endblock %}

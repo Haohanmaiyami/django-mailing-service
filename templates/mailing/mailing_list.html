@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+{% block content %}
+  <h1>Список рассылок</h1>
+  <p><a href="{% url 'mailing:create' %}">Создать новую рассылку</a></p>
+
+  {% if mailings %}
+    <ul>
+      {% for mailing in mailings %}
+        <li>
+          Рассылка "<strong>{{ mailing.message.subject }}</strong>" —
+          всего получателей: {{ mailing.clients.count }}.<br>
+          Успешно отправлено: <strong>{{ attempt_stats|dict_get:mailing.id|dict_get:'success' }}</strong>,
+          {% if attempt_stats|dict_get:mailing.id|dict_get:'failed' > 0 %}
+            не удалось: <strong>{{ attempt_stats|dict_get:mailing.id|dict_get:'failed' }}</strong>.
+          {% else %}
+            ошибок нет.
+          {% endif %}
+          <br>
+          <a href="{% url 'mailing:send' mailing.pk %}">Отправить</a> |
+          <a href="{% url 'mailing:update' mailing.pk %}">Изменить</a> |
+          <a href="{% url 'mailing:delete' mailing.pk %}">Удалить</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Пока нет рассылок.</p>
+  {% endif %}
+{% endblock %}
